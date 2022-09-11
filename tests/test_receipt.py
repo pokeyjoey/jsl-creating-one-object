@@ -27,17 +27,36 @@ def receipts():
     # create a list of receipt objects
     receipts = [Receipt(**restaurant_receipt) for restaurant_receipt in restaurant_receipts]
 
-    breakpoint()
     yield receipts
 
 def test_receipt(receipt):
     assert type(receipt) == Receipt
 
-def test_receipt_returns_valueerror(bad_receipt_data):
-    with pytest.raises(ValueError):
-        receipt = Receipt(**dict(bad_receipt_data))
+def test_receipt_has_total(receipt):
+    assert receipt.total == '93622'
 
-def test_receipts(receipts):
+def test_receipt_has_address(receipt):
+    assert receipt.address == '207 SAN JACINTO BLVD STE 200'
+
+def test_receipt_has_end_date(receipt):
+    assert receipt.end_date == '2017-10-31T00:00:00.000'
+
+def test_receipt_has_restaurant_name(receipt):
+    assert receipt.restaurant_name == "MAX'S WINE DIVE"
+
+def test_receipts_has_address(receipts):
     for receipt in receipts:
-        assert type(receipt) == Receipt
+        assert hasattr(receipt, 'address')
+
+def test_receipts_has_total(receipts):
+    for receipt in receipts:
+        assert hasattr(receipt, 'total')
+
+def test_receipts_has_end_date(receipts):
+    for receipt in receipts:
+        assert hasattr(receipt, 'end_date')
+
+def test_receipts_has_restaurant_name(receipts):
+    for receipt in receipts:
+        assert hasattr(receipt, 'restaurant_name')
 
